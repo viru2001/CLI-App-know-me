@@ -1,4 +1,5 @@
 const readlineSync = require('readline-sync');
+const chalk = require('chalk');
 
 let score = 0;
 
@@ -38,22 +39,22 @@ const highScores = [
 
 const welcome = () =>{
     let name = readlineSync.question("What is your name ? ")
-    const welcomeMsg = "Welcome " + name.toUpperCase() + " to HOW WELL DO YOU KNOW ME ";
+    const welcomeMsg = "Welcome " + chalk.yellow.bold(name.toUpperCase()) + " to HOW WELL DO YOU KNOW ME ";
     console.log(welcomeMsg);
     console.log("every correct answer give you +1 score");
 }
 
 const play = (question , answer)=>{
-    let styledQuestion = question;
+    let styledQuestion = chalk.rgb(255, 214, 153)(question)
     let userAnswer = readlineSync.question(styledQuestion);
     if(userAnswer.toLowerCase() === answer.toLowerCase()){
         score = score + 1;
-        console.log("Right !!!");
+        console.log(chalk.green("Right !!!"));
     } 
     else{
-        console.log("Wrong !!!");
+        console.log(chalk.red("Wrong !!!"));
     }
-    console.log("Your Current Score : " + score);
+    console.log("Your Current Score : " + chalk.magenta(score));
     console.log("---------------------------------------------------")
 }
 
@@ -64,7 +65,7 @@ const game = ()=>{
 }
 
 const displayScores = () =>{
-    console.log("YAY! , You Scored : " + score);
+    console.log(chalk.bgRed("YAY! , You Scored : " + score))
     console.log("---------------------------------------------------")
     console.log("Check out the high scores ")
     console.log("If you broke any of the records, send me the screenshot, I will update it in the leaderboard.")
